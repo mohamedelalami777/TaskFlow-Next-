@@ -1,19 +1,24 @@
 {
   "projects": [
     {
-      "id": "1",
-      "name": "Projet Alpha",
-      "color": "#FF5733"
+      "name": "Projet Alpha Updated",
+      "color": "#FF5733",
+      "id": "1"
     },
     {
-      "id": "2",
-      "name": "Projet Beta",
-      "color": "#33FF57"
+      "name": "Projet Beta Renamed",
+      "color": "#33FF57",
+      "id": "2"
     },
     {
       "id": "3",
       "name": "Projet Gamma",
       "color": "#3357FF"
+    },
+    {
+      "name": "x",
+      "color": "#3498db",
+      "id": "1777918263628"
     }
   ],
   "users": [
