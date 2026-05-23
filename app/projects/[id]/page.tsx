@@ -1,27 +1,27 @@
+import { notFound } from 'next/navigation';
+import { prisma } from '@/lib/prisma';
+
 interface Project {
-  id: string;
+  id: number;
   name: string;
   color: string;
+  createdAt: Date;
 }
 
-interface Props {
-  params: Promise<{ id: string }>;
+export async function generateStaticParams() {
+  const projects: Project[] = await prisma.project.findMany();
+  return projects.map((project) => ({ id: String(project.id) }));
 }
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
-
-export default async function ProjectPage({ params }: Props) {
+export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const res = await fetch(`${API_BASE}/projects/${id}`, {
-    cache: 'no-store',
+  const project = await prisma.project.findUnique({
+    where: { id: Number(id) },
   });
 
-  if (!res.ok) {
-    return <div style={{ padding: '2rem' }}>Projet non trouvé</div>;
+  if (!project) {
+    notFound();
   }
-
-  const project: Project = await res.json();
 
   return (
     <div style={{ padding: '2rem' }}>
@@ -38,7 +38,7 @@ export default async function ProjectPage({ params }: Props) {
         />
         {project.name}
       </h1>
-      <p>ID : {project.id}</p>
+      <p>Créé le : {project.createdAt.toLocaleDateString('fr-FR')}</p>
       <a href="/dashboard">← Retour au Dashboard</a>
     </div>
   );

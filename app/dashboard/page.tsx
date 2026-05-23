@@ -1,22 +1,17 @@
 import AddProjectForm from './AddProjectForm';
 import { deleteProject, renameProject } from '../actions/projects';
-import { logoutAction } from '../actions/auth';
+import { prisma } from '@/lib/prisma';
 
 interface Project {
-  id: string;
+  id: number;
   name: string;
   color: string;
 }
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
-
 export default async function DashboardPage() {
-  const res = await fetch(`${API_BASE}/projects`, {
-    cache: 'no-store',
+  const projects = await prisma.project.findMany({
+    orderBy: { createdAt: 'desc' },
   });
-
-  const projects: Project[] = await res.json();
 
   return (
     <div style={{ padding: '2rem' }}>
