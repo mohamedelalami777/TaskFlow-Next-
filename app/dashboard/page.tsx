@@ -31,6 +31,7 @@ export default async function DashboardPage() {
               alignItems: 'center',
               gap: '10px',
               marginBottom: '10px',
+             
             }}
           >
             {/* color */}
@@ -85,3 +86,24 @@ export default async function DashboardPage() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
